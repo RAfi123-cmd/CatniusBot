@@ -1,0 +1,121 @@
+*{
+    font-family: montserrat;
+}
+
+body{
+    background: f1fbff;
+    height: 100%;
+    width: 100%;
+}
+
+.section-padding{
+    padding: 80px 0;
+}
+.navbar-nav a{
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.navbar-light .navbar-brand{
+    color: #000;
+    font-size: 25px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.navbar-light .navbar-brand::focus,
+.navbar-light .navbar-brand::hover{
+    color: #000;
+}
+
+.navbar-light .navbar-nav .navbar-link{
+    color: #000;
+}
+.w-100{
+    height: 100vh;
+}
+
+.lead p{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn button{
+    border-radius: 10;
+    width: 100%;
+}
+
+#uploadedImage {
+    max-width: 100%;
+    height: auto;
+    display: none;
+}
+
+#cameraCardBody {
+    width: 100%; /* Set card body width to 80% of viewport width */
+    margin: 0 auto; /* Center the card body */
+}
+
+
+#videoElement {
+    width: 100%; /* Video fills the width of the parent container */
+    height: 100%; /* Video fills the height of the parent container */
+    object-fit: cover; /* Maintains the video's aspect ratio while covering the area */
+}
+/* .team-section {
+    background-color: #f8f9fa;
+} */
+
+.team-card {
+    border: none;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* .team-card:hover {
+    background-color: blue; 
+    transform: translateY(-10px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+} */
+
+.icon-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.team-card:hover .icon-container {
+    opacity: 1;
+}
+
+.icon {
+    font-size: 2rem;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.cat-name-image {
+    max-width: 100%; /* Gambar akan menyesuaikan lebar maksimal parent element */
+    height: auto; /* Mengikuti rasio aspek gambar */
+    display: block; /* Menyusun gambar dalam blok */
+    margin: 0 auto; /* Pusatkan gambar */
+}
+
+
