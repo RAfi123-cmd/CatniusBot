@@ -6,18 +6,10 @@
     <title>Project Aplikasi CatniusBot</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
-    <!-- twitter-boostrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-pzjw8f+ua8k8c+chjZO0LjMwlCD0GpZfSjtuC0VrXtI3zPQw8DcuEUW68B1jp5wk"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="./static/css/style.css">
-    <link rel="stylesheet" href="./static/css/styles.css">
-    <link rel="stylesheet" href="./static/css/bot_style.css">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bot_style.css') }}">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -57,10 +49,10 @@
                   <p class="lead fs-3">
                       Rekomendasi kesehatan terhadap kucing 
                   </p>
-                  <button id="deteksi" class="btn btn-primary btn-lg">Get started</button>
+                  <button id="deteksi" class="btn btn-primary btn-lg" href="#detection">Get started</button>
               </div>
               <a href="">
-                  <img class="img-fluid" width="500" src="images/bg.png" alt="" >
+                  <img class="img-fluid" width="500" src="{{ url_for('static', filename='images/bg.png') }}" alt="" >
               </a>
           </div>
       </section>
@@ -88,8 +80,8 @@
             </div>
             <div class="col-lg-4 col-md-12 col-12">
               <div class="about-img">
-                <img src="images/contoh2.png" alt="" class="img-fluid move-animation">
-                <img src="images/contoh1.jpg" alt="" class="img-fluid" style="margin: 12px 50px;">
+                <img src="{{ url_for('static', filename='images/contoh2.png') }}" alt="" class="img-fluid move-animation">
+                <img src="{{ url_for('static', filename='images/contoh1.jpg') }}" alt="" class="img-fluid" style="margin: 12px 50px;">
               </div>
             </div>
           </div>
@@ -97,29 +89,55 @@
       </section>
 
       <!-- Upload Gambar -->
-      <section id="detection" class="p-5">
+      <section id="detection" class="bg-success p-5">
         <div class="container mt-md-5">
-            <h2 style="font-family: cursive; font-weight: bold;" class="text-center">PREDIKSI PENYAKIT KUCING</h2>
-            <h4 class="text-muted fst-italic fs-5 text-center style="font-family: cursive;">Prediction of cat diseases</h4>
-      </section>
-      <section class="bg-success p-5">
-        <div class="container mt-md-5">
-          <div class="row">
-              <div class="col-md-6 mx-auto">
-                  <div class="card">
-                      <div class="card-body text-center">
-                          <a href="image_detection.html" >   
-                            <img class="img-fluid" style="width:200px;"
-                            src="./images/camera.jpg" alt="avatar">
-                          </a>
-                          <a href="realtime_detection.html" >   
-                            <img class="img-fluid" style="width:200px;"
-                            src="./images/video.jpg" alt="avatar">
-                          </a>
-                      </div>
-                  </div>
-              </div>
+          <h2 style="font-family: cursive; font-weight: bold;" class="text-center">PREDIKSI PENYAKIT KUCING</h2>
+          <h4 class="fst-italic fs-5 text-center" style="font-family: cursive; color:#fff;">Prediction of cat diseases</h4>
+          <div class="row mt-5 mb-5">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <!-- Form untuk gambar dari kamera -->
+                                <form action="/Upload-image" method="post" enctype="multipart/form-data">
+                                    <label>
+                                        <input type="file" name="file" id="file" accept="image/*" style="display:none">
+                                        <img class="img-fluid" style="width: 200px;" src="{{ url_for('static', filename='images/camera.jpg') }}" alt="avatar">
+                                    </label>
+                                    <div class="text-center mt-3 mb-3">
+                                        <input type="submit" class="btn btn-primary btn-lg text-light" name="Submit" value="Submit" onclick="$('#loading-prediction-image').show();" style="margin-left: -30px;">
+                                    </div>
+                                    <div class="text-center mt-4 mb-4">
+                                        <div id="loading-prediction-image" style="display:none;"><img src="{{ url_for('static', filename='images/loading.gif') }}" alt=""/></div>
+                                    </div>  
+                                </form>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <!-- Form untuk video -->
+                                <form action="/Realtime" method="post" enctype="multipart/form-data">
+                                    <img class="img-fluid" style="width: 200px;" src="{{ url_for('static', filename='images/video.jpg') }}" alt="avatar">
+                                    <div class="text-center mt-3 mb-3">
+                                        <a href="{{ url_for('webcam') }}" type="button" class="btn btn-primary btn-lg text-light" style="margin-left: -30px;">Webcam</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
+          {% if show_image %}
+          <div class="col-lg-6 col-md-6 col-sm-12 mx-auto">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="row">
+                          <img class="center mx-auto mt-3 mb-4" src="data:image/png;base64, {{result_image_path}}" alt='Classification image' style="width:100%; height:100%;" >
+                    </div>
+                </div>
+            </div>
+          </div>
+          {% endif %}
       </div>  
     </section>
 
@@ -127,14 +145,14 @@
     <!-- Team Member -->
     <section id="team" class="text-center section-padding bg-primary">
       <h3 style="font-family: cursive; font-weight: bold;">TEAM JENIUS CATNIUSBOT</h3>
-      <h4 class="text-muted fst-italic fs-5 p-4" style="font-family: cursive;">Team Genius CatniusBot</h4>
+      <h4 class="fst-italic fs-5 p-4" style="font-family: cursive; color:#fff;">Team Genius CatniusBot</h4>
     <!-- </section>
     <section class="team-section section-padding" style="background-color: #eee;"> -->
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-4 col-sm-6">
                     <div class="card team-card" style="max-width: 18rem;">
-                        <img src="./images/team/rosyidah.jpg" class="card-img-top" alt="Team Member 1">
+                        <img src="{{ url_for('static', filename='images/team/rosyidah.jpg') }}" class="card-img-top" alt="Team Member 1">
                         <div class="card-body text-center">
                             <h5 class="card-title">Rosyidah Dwiyanti</h5>
                             <p class="card-text">AI/ML Engineer</p>
@@ -150,7 +168,7 @@
 
                 <div class="col-md-4 col-sm-6">
                     <div class="card team-card" style="max-width: 18rem;">
-                        <img src="./images/team/Rafi.jpg" class="card-img-top" alt="Team Member 2">
+                        <img src="{{ url_for('static', filename='images/team/Rafi.jpg') }}" class="card-img-top" alt="Team Member 2">
                         <div class="card-body text-center">
                             <h5 class="card-title">Rafi'ul Huda</h5>
                             <p class="card-text">AI/ML Engineer</p>
@@ -166,7 +184,7 @@
 
                 <div class="col-md-4 col-sm-6">
                     <div class="card team-card" style="max-width: 18rem;">
-                        <img src="./images/team/salsabila.jpg" class="card-img-top" alt="Team Member 3">
+                        <img src="{{ url_for('static', filename='images/team/salsabila.jpg') }}" class="card-img-top" alt="Team Member 3">
                         <div class="card-body text-center">
                             <h5 class="card-title">Salsabila Rahmi</h5>
                             <p class="card-text">UI/UX Designer</p>
@@ -182,7 +200,7 @@
 
                 <div class="col-md-4 col-sm-6">
                     <div class="card team-card" style="max-width: 18rem;">
-                        <img src="./images/team/raita.jpg" class="card-img-top" alt="Team Member 3">
+                        <img src="{{ url_for('static', filename='images/team/raita.jpg') }}" class="card-img-top" alt="Team Member 3">
                         <div class="card-body text-center">
                             <h5 class="card-title">Raita Juliah</h5>
                             <p class="card-text">UI/UX Designer</p>
@@ -198,7 +216,7 @@
 
                 <div class="col-md-4 col-sm-6">
                     <div class="card team-card" style="max-width: 18rem;">
-                        <img src="./images/team/azmi.jpg" class="card-img-top" alt="Team Member 3">
+                        <img src="{{ url_for('static', filename='images/team/azmi.jpg') }}" class="card-img-top" alt="Team Member 3">
                         <div class="card-body text-center">
                             <h5 class="card-title">Azmi Muhammad Shiddiq</h5>
                             <p class="card-text">Data Science</p>
@@ -261,18 +279,18 @@
               <div class="col-lg-2 col-md-6 mb-4">
                   <h5 class="text-uppercase mb-3 text-white">Link Penting</h5>
                   <ul class="list-unstyled">
-                      <li><a href="#">Home</a></li>
-                      <li><a href="#">About us</a></li>
-                      <li><a href="#">Cat Detection</a></li>
-                      <li><a href="#">Team</a></li>
-                      <li><a href="#">Contact</a></li>
+                      <li><a href="#home">Home</a></li>
+                      <li><a href="#about">About us</a></li>
+                      <li><a href="#detection">Cat Detection</a></li>
+                      <li><a href="#team">Team</a></li>
+                      <li><a href="#contact">Contact</a></li>
                   </ul>
               </div>
               <div class="col-lg-2 col-md-6 mb-4">
                   <h5 class="text-uppercase mb-3 text-white">Service</h5>
                   <ul class="list-unstyled">
-                      <li><a href="#">Real time detection</a></li>
-                      <li><a href="#">Image Detection</a></li>
+                      <li><a href="#detection">Real time detection</a></li>
+                      <li><a href="#detection">Image Detection</a></li>
                   </ul>
               </div>
               <div class="col-lg-3 col-md-6 mb-3">
@@ -305,17 +323,17 @@
           <p>&copy; 2023 Catniusbot. All rights reserved.</p>
   </footer>
 
-  <nav class="fixed-bottom">
+  <div class="fixed-bottom">
       <div class="container">
         <div class="chatbox">
             <div class="chatbox__support">
                 <div class="chatbox__header">
                     <div class="chatbox__image--header">
-                        <img src="images/bot.png" width="30" height="30" alt="image">
+                        <img src="{{ url_for('static', filename='images/bot.png') }}" width="30" height="30" alt="image">
                     </div>
                     <div class="chatbox__content--header">
-                        <h4 class="chatbox__heading--header" style="text-align: left; margin-left:20px; color: #000;">CatniusBot</h4>
-                        <p class="chatbox__description--header" style="text-align: left; margin-left:20px; color: #000;">Halo!! Saya CatniuBot, Apakah ada yang ingin ditanyakan terkait Cat Disease?</p>
+                        <h4 class="chatbox__heading--header" style="text-align: left; margin-left:20px; color: #fff;">CatniusBot</h4>
+                        <p class="chatbox__description--header" style="text-align: left; margin-left:20px; color: #fff;">Halo!! Saya CatniuBot, Apakah ada yang ingin ditanyakan terkait Cat Disease?</p>
                     </div>
                 </div>
                 <div class="chatbox__messages">
@@ -329,20 +347,19 @@
             <div class="chatbox__button">
                 <button>       
                     <img class="img-fluid" width="40" height="40"
-                    src="images/chat.png" alt="avatar">
+                    src="{{ url_for('static', filename='images/chat.png') }}" alt="avatar">
                 </button>
             </div>
         </div>
     </div>
-  </nav>
+  </div>
   
   <!-- File Script -->
   <script>
     $SCRIPT_ROOT = '{{ request.script_root|tojson }}';
     </script>
-  <script src="static/js/chatbot.js"></script>
-  <script src="static/js/pindahid.js"></script>
-
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

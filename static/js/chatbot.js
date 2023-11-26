@@ -58,7 +58,7 @@ class Chatbox {
           })
           .then(r => r.json())
           .then(r => {
-            let msg2 = { name: "Supernova", message: r.answer };
+            let msg2 = { name: "Catnius", message: r.answer };
            // this.messages=[];
             this.messages.push(msg2);
             this.updateChatText(chatbox)
@@ -71,26 +71,54 @@ class Chatbox {
           });
     }
 
+    extractDriveImageId(url) {
+        try {
+            const urlParams = new URLSearchParams(new URL(url).search);
+            return urlParams.get("id");
+        } catch (error) {
+            console.error("Invalid URL:", url);
+            return null; // or handle the error in a way that makes sense for your application
+        }
+    }
+
+
     updateChatText(chatbox) {
         var html = '';
-        //console.log(this.messages)
-        this.messages.slice().forEach(function(item, index) {
-          //  console.log(item.name)
-            if (item.name === "Supernova")
-            {
-                html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>'
+
+        this.messages.slice().forEach((item, index) => {
+            let messageText = item.message;
+
+            messageText = messageText.replace(/(\d+\.) /g, '<br>$1');
+
+            const hasImage = messageText.includes("![") && messageText.includes("](");
+
+            if (hasImage) {
+                const imageRegex = /!\[(.*?)\]\((.*?)\)/g;
+                const matches = Array.from(messageText.matchAll(imageRegex));
+
+                for (const match of matches) {
+                    const originalMarkdown = match[0];
+                    const altText = match[1];
+                    const imageUrl = match[2];
+                    const driveImageId = this.extractDriveImageId(imageUrl);
+                    const imgTag = `<a href="${imageUrl}" target="_blank"><img src="https://drive.google.com/uc?id=${driveImageId}" alt="${altText}" class="response-image"></a>`;
+                    messageText = messageText.replace(originalMarkdown, imgTag);
+                }
             }
-            else
-            {
-                html += '<div class="messages__item messages__item--operator">' + item.message + '</div>'
+
+            if (messageText.includes("-")) {
+                messageText = messageText.replace(/-/g, '<br>');
             }
-          });
+
+            if (item.name === "Catnius") {
+                html += '<div class="messages__item messages__item--operator">' + messageText + '</div>';
+            } else {
+                html += '<div class="messages__item messages__item--visitor">' + messageText + '</div>';
+            }
+        });
 
         const chatmessage = chatbox.querySelector('.chatbox__messages');
-        //chatmessage.innerHTML = html;
         chatmessage.insertAdjacentHTML('beforeend', html);
-
-        
     }
 }
 

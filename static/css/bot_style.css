@@ -113,6 +113,13 @@
     padding: 0 20px;
 }
 
+.response-image {
+    max-width: 200px; 
+    height: auto; 
+    margin: 20px;
+}
+
+
 .messages__item {
     margin-top: 10px;
     background: #E0E0E0;
@@ -132,7 +139,8 @@
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     background: #6b9e9a;;
-    color: white;
+    color: black;
+    text-align: justify;
 }
 
 /* FOOTER */
