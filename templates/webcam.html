@@ -27,7 +27,7 @@
                 <a class="nav-link" href="#about">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('index') }}">Cat Detection</a>
+                <a class="nav-link" href="#detection">Cat Detection</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#team">Team</a>
@@ -46,10 +46,12 @@
               <div>
                   <h1 style="font-family: cursive;">Hello Catlovers,</h1>
                   <h3 class="my-4 fs-2" style="font-family: 'Montserrat', sans-serif;">Selamat Datang di CatniusBot</h3>
-                  <p class="lead fs-3">
-                      Rekomendasi kesehatan terhadap kucing 
-                  </p>
-                  <button id="deteksi" class="btn btn-primary btn-lg">Get started</button>
+                  <p class="lead">
+                    CatniusBot adalah sebuah aplikasi yang berguna <br>
+                    untuk mendeteksi kesehatan terhadap kucing secara akurat dan efisien. <br>
+                    CatniusBot bertujuan untuk memudahkan pengguna dalam mendeteksi <br>
+                    ataupun memprediksi kondisi kesehatan pada kucing.</p>
+                  <button id="deteksi" class="btn btn-primary btn-lg" href="#detection">Get started</button>
               </div>
               <a href="">
                   <img class="img-fluid" width="500" src="{{ url_for('static', filename='images/bg.png') }}" alt="" >
@@ -98,6 +100,9 @@
                   <div class="video-container">
                       <img src="{{ url_for('video_feed') }}" height="500px" width="600px">
                   </div>
+                  <div class="text-center mt-3">
+                    <a href="{{ url_for('index') }}" type="button" class="btn btn-primary btn-lg text-light">Kembali</a>
+                </div>
               </div>
           </div>
       </div>  
